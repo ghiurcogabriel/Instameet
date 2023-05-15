@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import "./LoginPage.css";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useLogin } from "../../../hooks/useLogin";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { authUser } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { login, isPending, error } = useLogin();
@@ -12,10 +16,21 @@ const LoginPage = () => {
     password: Yup.string().required("Please add your password"),
   });
 
-  const handleSubmit = ({ email, password }) => {
+  const {user} = useAuthState(authUser);
+  const navigate = useNavigate();
+
+  const handleSubmit = async ({ email, password }) => {
     console.log(email, password);
-    login(email, password);
+    await login(email, password);
+    navigate("./landingPage");
   };
+
+  useEffect(() => {
+    if (user) {
+      console.log('logged in');
+      
+    }
+  }, [navigate, user]);
 
   return (
     <div className="login-container">

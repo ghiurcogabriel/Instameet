@@ -1,22 +1,26 @@
 import React from "react";
 import { FaBars, FaHome, FaUser } from "react-icons/fa";
-import logo from "../../assets/svg/logoNoBackground.svg";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+
 import { Link, NavLink } from "react-router-dom";
+import { authUser } from "../../firebase/config";
+import { useLogout } from "../../hooks/useLogout";
+
+import logo from "../../assets/svg/logoNoBackground.svg";
 import "./navbar.css";
 import Search from "../../Pages/Search/Search";
-import { authUser } from "../../firebase/config";
-
-import { useAuthState } from "react-firebase-hooks/auth";
 
 const activeLink = ({ isActive }) => (isActive ? "active" : "");
 
 const Navbar = () => {
- 
   const [user] = useAuthState(authUser);
+  const { logout, error } = useLogout();
+  const navigate = useNavigate();
 
-  console.log(user); 
+  console.log(user);
   return (
-    <nav className="navbar">
+    <nav className={user ? "navbar-loggedin" : "navbar"}>
       <div className="left">
         <Link to="/">
           <img
@@ -26,7 +30,7 @@ const Navbar = () => {
           />
         </Link>
       </div>
-        <Search />
+      <Search />
 
       <div className="right">
         <input type="checkbox" id="check" />
@@ -64,10 +68,14 @@ const Navbar = () => {
               //   marginLeft: "15px",
               //   cursor: "pointer",
               // }}
-              // onClick={logout}
+              onClick={() => {
+                logout();
+                navigate("/");
+              }}
             >
               Log Out
             </button>
+            <p>{error}</p>
           </div>
           {/* )} */}
         </ul>

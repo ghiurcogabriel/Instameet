@@ -15,6 +15,17 @@
   top: 0;
 }
 
+.navbar-loggedin {
+  background-color: #0000004b;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 10;
+  top: 0;
+}
+
 .left h1 {
   font-size: 2.5rem;
   cursor: pointer;

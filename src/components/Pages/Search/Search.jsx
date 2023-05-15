@@ -4,8 +4,8 @@ import './Search.css';
 const Search = () => {
   return (
     <>
-      <form className="form">
-        <button>
+      <form className="search-form">
+        <button className="search-btn">
           <svg
             width="17"
             height="16"
@@ -24,7 +24,7 @@ const Search = () => {
           </svg>
         </button>
         <input
-          className="input"
+          className="search-input"
           placeholder="Type your text"
           required=""
           type="text"
