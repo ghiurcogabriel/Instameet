@@ -1,18 +1,20 @@
-import React, {useContext} from "react";
+import React from "react";
 import { FaBars, FaHome, FaUser } from "react-icons/fa";
 import logo from "../../assets/svg/logoNoBackground.svg";
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
 import Search from "../../Pages/Search/Search";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { authUser } from "../../firebase/config";
+
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const activeLink = ({ isActive }) => (isActive ? "active" : "");
 
 const Navbar = () => {
  
-  const {user} = useAuthContext;
+  const [user] = useAuthState(authUser);
 
-  console.log(user);
+  console.log(user); 
   return (
     <nav className="navbar">
       <div className="left">

@@ -44,7 +44,10 @@ const Signup = () => {
   };
 
   useEffect(() => {
-    if (user) navigate("/");
+    if (user) {
+      console.log('logged in');
+      navigate("/login");
+    }
   });
 
   return (
@@ -57,8 +60,9 @@ const Signup = () => {
           confirmPassword: "",
           acceptTOS: false,
         }}
-        onSubmit={(values, errors) => {
-          handleSubmit(values, errors);
+        onSubmit={(values, { resetForm }) => {
+          handleSubmit(values);
+          resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -68,13 +72,18 @@ const Signup = () => {
           handleChange,
           touched,
           errors,
-          handleBlur,
+          handleBlur
         }) => {
           return (
             <div className="login-container">
               <div className="form-container">
                 <p className="title">Sign up</p>
-                <form className="login-form" onSubmit={handleSubmit}>
+                <form
+                  className="login-form"
+                  onSubmit={(e) => {
+                    handleSubmit(e);
+                  }}
+                >
                   <div className="input-group">
                     <label htmlFor="username">Name</label>
                     <input

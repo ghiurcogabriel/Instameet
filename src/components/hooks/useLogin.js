@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { authUser } from "../firebase/config";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import AuthContextProvider from "../context/auth/authContext";
+import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
   const [isCancelled, setIsCancelled] = useState(false);
-  const { dispatch } = useContext(AuthContextProvider);
+  const { dispatch } = useAuthContext();
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
 
@@ -14,6 +14,7 @@ export const useLogin = () => {
     setError(null);
     try {
       const result = await signInWithEmailAndPassword(authUser, email, password);
+      console.log(result);
 
       dispatch({ type: "SIGNIN", payload: result.user });
 

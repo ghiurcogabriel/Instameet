@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { authUser } from "../firebase/config";
 import {
   createUserWithEmailAndPassword,
@@ -12,7 +12,7 @@ export const useSignUp = () => {
   const [error, setError] = useState(null);
   const [isCancelled, setIsCancelled] = useState(false);
 
-  const { dispatch } = useAuthContext;
+  const { dispatch } = useAuthContext();
 
   const signUp = async (email, password, displayName) => {
     try {
@@ -21,13 +21,14 @@ export const useSignUp = () => {
         email,
         password
       );
+      console.log(result);
 
       const auth = getAuth();
-      updateProfile(auth.currentUser, {
+      await updateProfile(auth.currentUser, {
         displayName,
       });
 
-      dispatch({ type: "LOGIN", payload: result.user });
+      dispatch({ type: "SIGNIN", payload: result.user });
 
       if (!result) {
         throw new Error("Could not complete the authentication..");
