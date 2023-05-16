@@ -18,7 +18,7 @@ const Navbar = () => {
   const { logout, error } = useLogout();
   const navigate = useNavigate();
 
-  console.log(user);
+  // console.log(user);
   return (
     <nav className={user ? "navbar-loggedin" : "navbar"}>
       <div className="left">
