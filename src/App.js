@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { authUser } from "./components/firebase/config";
@@ -14,8 +14,15 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        {user && <Route path="/landingPage" element={<LandingPage />} />}
+        <Route
+          exact
+          path="/"
+          element={user ? <Navigate to="/landingPage" /> : <Home />}
+        />
+        <Route
+          path="/landingPage"
+          element={!user ? <Navigate to="/" /> : <LandingPage />}
+        />
       </Routes>
     </div>
   );

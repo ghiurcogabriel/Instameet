@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useState } from "react";
-import { Timestamp } from "firebase/firestore";
+import { Timestamp, addDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { setDoc, doc, collection } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 
 const initialValues = {
   document: null,
@@ -34,20 +34,20 @@ const firebaseReducer = (state, action) => {
 }
 
 export const useFirebase = (collectionDb) => {
-  const [state, dispatch] = useReducer(firebaseReducer, initialValues);
+  const [response, dispatch] = useReducer(firebaseReducer, initialValues);
 
-  const ref = doc(collection, (db, collectionDb));
-
+  const timeStamp = Timestamp.fromDate(new Date());
+  
   const addDocument = async (doc) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      const addedDocument = await setDoc(ref, { ...doc });
+      const addedDocument = await addDoc(collection(db, collectionDb), { ...doc, timeStamp });
       dispatch({ type: "ADDED_DOCUMENT", paylod: addedDocument });
     } catch (error) {
       dispatch({ type: "ERROR", payload: error.message });
     }
   };
 
-  return { addDocument };
+  return { addDocument, response };
 };
