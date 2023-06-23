@@ -13,7 +13,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const { user } = useAuthState(authUser);
-  console.log(user);
+  // console.log(user);
 
   const { signUp, error, isPending } = useSignUp();
 

@@ -1,5 +1,5 @@
-import React from "react";
-import { FaBars, FaHome, FaUser } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaBars, FaPlusCircle, FaUser } from "react-icons/fa";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -7,9 +7,14 @@ import { Link, NavLink } from "react-router-dom";
 import { authUser } from "../../firebase/config";
 import { useLogout } from "../../hooks/useLogout";
 
-import logo from "../../assets/svg/logoNoBackground.svg";
+import logo from "../../assets/svg/logoBackground.svg";
 import "./navbar.css";
 import Search from "../../Pages/Search/Search";
+
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import { styleUserLandingPage } from "../MuiModal";
+import AddPost from "../../Pages/Posts/AddPost";
 
 const activeLink = ({ isActive }) => (isActive ? "active" : "");
 
@@ -17,12 +22,15 @@ const Navbar = () => {
   const [user] = useAuthState(authUser);
   const { logout, error } = useLogout();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // console.log(user);
   return (
     <nav className={user ? "navbar-loggedin" : "navbar"}>
       <div className="left">
-        <Link to="/">
+        <Link to="/login">
           <img
             src={logo}
             alt="logo"
@@ -39,17 +47,32 @@ const Navbar = () => {
         </label>
         <ul className="list">
           <li>
-            <NavLink to="./mens" className={activeLink}>
-              <FaHome />
-            </NavLink>
+            <div className={"plus-button"}>
+              <FaPlusCircle
+                onClick={handleOpen}
+                size={25}
+                color="#257272"
+                style={{ cursor: "pointer" }}
+              />
+              <span className="tooltip">Add new post</span>
+              <Modal
+                // className="main-modal"
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={styleUserLandingPage}>
+                  <AddPost close={handleClose} uid={user?.uid} />
+                </Box>
+              </Modal>
+            </div>
           </li>
           <li>
-            <NavLink to="/womens" className={activeLink}>
+            <NavLink to="/userHomepage" className={activeLink}>
               <FaUser />
             </NavLink>
           </li>
-
-          {/* {user && ( */}
           <div
             style={{
               display: "flex",
@@ -60,24 +83,15 @@ const Navbar = () => {
           >
             <button
               className="button-17"
-              // style={{
-              //   height: "35px",
-              //   width: "75px",
-              //   fontWeight: "bold",
-              //   fontSize: "15px",
-              //   marginLeft: "15px",
-              //   cursor: "pointer",
-              // }}
               onClick={() => {
                 logout();
-                navigate("/");
+                navigate("/login");
               }}
             >
               Log Out
             </button>
             <p>{error}</p>
           </div>
-          {/* )} */}
         </ul>
       </div>
     </nav>

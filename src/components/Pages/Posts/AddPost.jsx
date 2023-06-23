@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddPost.css";
 import { useFirebase } from "../../hooks/useFirebase";
+import { useStorage } from "../../hooks/useStorage";
 
 const AddPost = ({ uid }) => {
   const [image, setImage] = useState("");
@@ -8,32 +9,50 @@ const AddPost = ({ uid }) => {
   const [location, setLocation] = useState("");
 
   const { addDocument } = useFirebase("posts");
+  const { addImageToStorage, imgUrls, error, progress } = useStorage("posts/");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addDocument({ uid, image, description, location });
-    console.log(image, description, location);
+  const handleAddImage = () => {
+    addImageToStorage(image);
+    // console.log(image);
   };
+  // console.log(imgUrls);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //  await addImageToStorage(image);
+    // console.log(image);
+    setTimeout(async () => {
+      await addDocument({ uid, description, location, imgUrls });
+      console.log(uid, description, location, imgUrls);
+    }, 1000);
+  };
+
   return (
     <div className="add-post-container">
-      <form className="add-form" onSubmit={handleSubmit}>
-        <div className="form-top-text">
-          <span className="form-title">Upload your file</span>
-          <p className="form-paragraph">File should be an image</p>
-        </div>
+      <div className="form-top-text">
+        <span className="form-title">Upload your file</span>
+        <p className="form-paragraph">File should be an image</p>
+      </div>
 
-        <label htmlFor="file-input" className="drop-container">
-          <span className="drop-title">Drop files here</span>
-          or
-          <input
-            type="text"
-            // accept="image/*"
-            required=""
-            value={image}
-            id="file-input"
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </label>
+      <label htmlFor="file-input" className="drop-container">
+        <span className="drop-title">Drop files here</span>
+        <span className="or">or</span>
+        <input
+          type="file"
+          accept="image/*"
+          // required=""
+          // value={image}
+          id="file-input"
+          onChange={(e) => setImage(e.target.files[0])}
+        />
+      </label>
+      <button
+        onClick={handleAddImage}
+        className="button-name"
+        style={{ height: "30px", margin: "10px" }}
+      >
+        Add photo
+      </button>
+      <form className="add-form" onSubmit={handleSubmit}>
         <div className="add-fields">
           <label htmlFor="description">
             <span className="post-name">Add Description:</span>

@@ -6,6 +6,7 @@ import { authUser } from "./components/firebase/config";
 import Navbar from "./components/common/Navbar/Navbar";
 import Home from "./components/Pages/HomePage/Home";
 import LandingPage from "./components/Pages/LandingPage/LandingPage";
+import UserHomepage from "./components/Pages/UserHomepage/UserHomepage";
 
 function App() {
   const [user] = useAuthState(authUser);
@@ -16,13 +17,16 @@ function App() {
       <Routes>
         <Route
           exact
-          path="/"
-          element={user ? <Navigate to="/landingPage" /> : <Home />}
+          path="/login"
+          element={user ? <Navigate to="/" /> : <Home />}
         />
         <Route
-          path="/landingPage"
-          element={!user ? <Navigate to="/" /> : <LandingPage />}
+          path="/"
+          element={!user ? <Navigate to="/login" /> : <LandingPage />}
         />
+        {user && (
+          <Route path='/userHomepage' element={<UserHomepage />}/>
+        )}
       </Routes>
     </div>
   );

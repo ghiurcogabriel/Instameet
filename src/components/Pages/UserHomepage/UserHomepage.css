@@ -1,0 +1,79 @@
+.user-homepage{
+    width: 100%;
+    height: 100%;
+    margin-top: 6%;
+    display: flex;
+    justify-content: center;
+}
+
+.user-container, .user-posts-container{
+    display: flex;
+    flex-direction: column;
+}
+/* .user-posts-container{
+    border-top: 1px solid #000;
+} */
+
+.user-details-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.img-profile img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.user-actions{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.user-images{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    margin-top: 20px;
+    border-top: 2px solid #5c5c5c;
+    box-shadow: 30px 35px 30px 35px #ac6b70;
+}
+
+.img-post{
+    width: 400px;
+    height: 300px;
+    margin: 15px;
+}
+
+.save-user {
+    background-color: #212629;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 16px;
+    outline: none;
+    padding: 11px 17px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.name-input{
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    background-color: #e7e6e6;
+    margin-bottom: 10px;
+}

@@ -20,9 +20,9 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async ({ email, password }) => {
-    console.log(email, password);
+    // console.log(email, password);
     await login(email, password);
-    navigate("./landingPage");
+    navigate("./");
   };
 
   useEffect(() => {

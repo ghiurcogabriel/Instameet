@@ -1,5 +1,5 @@
 .add-form {
-    background-color: #ffffff4d;
+    background-color: #000000a6;
     box-shadow: 0 10px 60px rgb(78, 82, 90);
     border: 1px solid rgb(159, 159, 160);
     border-radius: 20px;
@@ -14,6 +14,7 @@
 }
 
 .post-name {
+    color: #fff;
     display: inline-block;
     width: 100%;
 }
@@ -23,12 +24,14 @@
     /* height: 0px; */
     border-radius: 20px;
     border: none;
-    background-color: #ffffff9c;
+    background-color: #ffffff67;
     padding: 10px;
     color: #080606;
     font-size: 20px;
     max-width: 555px;
+    min-width: 555px;
     max-height: 270px;
+    min-height: 70px;
     outline: none
 }
 
@@ -39,6 +42,7 @@
     border: none;
     background-color: #ffffff9c;
     outline: none;
+    padding: 10px;
 }
 
 textarea:focus {
@@ -46,7 +50,7 @@ textarea:focus {
 }
 
 .form-title {
-    color: #000000;
+    color: #5a5454;
     font-size: 1.8rem;
     font-weight: 500;
 }
@@ -80,7 +84,10 @@ textarea:focus {
 }
 
 .drop-container:hover .drop-title {
-    color: #222;
+    color: #858484;
+}
+.drop-container:hover .or {
+    color: #858484;
 }
 
 .drop-title {

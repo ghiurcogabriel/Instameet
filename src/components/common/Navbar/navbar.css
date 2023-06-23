@@ -4,6 +4,45 @@
   box-sizing: border-box;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip {
+  visibility: hidden;
+  position: absolute;
+  margin-top: 2.2%;
+  z-index: 2;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 3px;
+  color: white;
+  background-color: #6b6a6a;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent #6b6a6a transparent;
+}
+
+.plus-button:hover .tooltip {
+  visibility: visible;
+}
+
+.plus-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .navbar {
   position: fixed;
   width: 100%;
@@ -63,6 +102,9 @@
   cursor: pointer;
   text-decoration: none;
   transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .admin {
